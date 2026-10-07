@@ -232,6 +232,7 @@ class ListingViewSet(viewsets.ModelViewSet):
                 file=image_file,
                 is_primary=True
             )
+            listing.refresh_from_db()
 
         serializer = ListingSerializer(listing, context={'request': request})
         return success_response(

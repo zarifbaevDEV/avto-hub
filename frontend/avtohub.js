@@ -323,7 +323,7 @@
               city: v.city || 'Toshkent',
               dealer: item.seller_detail?.first_name || 'AvtoHub Sotuvchi',
               rating: 4.9,
-              image: (item.images && item.images.length > 0 ? item.images[0].file : null) || DEFAULT_CARS[0].image,
+              image: (item.images && item.images.length > 0 && item.images[0].file) ? item.images[0].file : null,
               isVip: item.is_vip,
               isVerified: true,
               views: item.views || 45,
@@ -418,7 +418,14 @@
           return `
             <article data-car-id="${car.id}" class="car-card cursor-pointer bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden shadow-sm hover:border-secondary hover:shadow-md transition-all duration-200 flex flex-col">
               <div class="relative w-full aspect-[4/3] bg-surface-container-high overflow-hidden">
-                <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${car.image}" alt="${car.title}" loading="lazy"/>
+                ${car.image ? `
+                  <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${car.image}" alt="${car.title}" loading="lazy"/>
+                ` : `
+                  <div class="w-full h-full bg-gradient-to-br from-surface-container-high to-surface-container flex flex-col items-center justify-center text-outline select-none p-3 text-center">
+                    <span class="material-symbols-outlined text-3xl opacity-50 mb-1">directions_car</span>
+                    <span class="text-xs font-semibold text-on-surface-variant">Rasmsiz e'lon</span>
+                  </div>
+                `}
                 <button aria-label="Sevimlilarga qo'shish" onclick="event.stopPropagation(); window.AvtoHub.toggleFavorite('${car.id}', this)" class="fav-btn absolute top-2 right-2 w-7 h-7 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm flex items-center justify-center ${isFav ? 'text-error' : 'text-outline'} hover:text-error transition-colors shadow-sm active:scale-90">
                   <span class="material-symbols-outlined text-base" style="${isFav ? "font-variation-settings: 'FILL' 1;" : ''}">favorite</span>
                 </button>
@@ -443,7 +450,15 @@
         return `
           <article data-car-id="${car.id}" class="car-card cursor-pointer bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden shadow-sm hover:border-secondary hover:shadow-md transition-all duration-200">
             <div class="relative w-full aspect-[16/10] bg-surface-container-high overflow-hidden">
-              <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${car.image}" alt="${car.title}" loading="lazy"/>
+              ${car.image ? `
+                <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${car.image}" alt="${car.title}" loading="lazy"/>
+              ` : `
+                <div class="w-full h-full bg-gradient-to-br from-surface-container-high to-surface-container flex flex-col items-center justify-center text-outline select-none p-4 text-center">
+                  <span class="material-symbols-outlined text-4xl opacity-50 mb-1">directions_car</span>
+                  <span class="text-xs font-semibold text-on-surface-variant">Rasmsiz e'lon</span>
+                  <span class="text-[10px] opacity-60">Sotuvchi rasm yuklamagan</span>
+                </div>
+              `}
               <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5 pointer-events-none">
                 ${car.isVip ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold shadow-sm"><span class="material-symbols-outlined text-xs">rocket_launch</span> VIP</span>' : ''}
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm text-on-tertiary-container font-label-sm text-label-sm font-semibold border border-tertiary-fixed-dim/60 shadow-sm">
@@ -653,17 +668,30 @@
         </button>
 
         <!-- Big Image Header -->
-        <div class="relative w-full aspect-[16/10] bg-surface-container overflow-hidden">
-          <img src="${car.image}" alt="${car.title}" class="w-full h-full object-cover"/>
-          <div class="absolute bottom-3 left-3 flex gap-2">
-            <span class="px-2.5 py-1 rounded-md bg-secondary text-white font-label-sm text-xs font-semibold shadow">
-              Tasdiqlangan VIN
-            </span>
-            <span class="px-2.5 py-1 rounded-md bg-green-600 text-white font-label-sm text-xs font-semibold shadow">
-              Holati A'lo
-            </span>
+        ${car.image ? `
+          <div class="relative w-full aspect-[16/10] bg-surface-container overflow-hidden">
+            <img src="${car.image}" alt="${car.title}" class="w-full h-full object-cover"/>
+            <div class="absolute bottom-3 left-3 flex gap-2">
+              <span class="px-2.5 py-1 rounded-md bg-secondary text-white font-label-sm text-xs font-semibold shadow">
+                Tasdiqlangan VIN
+              </span>
+              <span class="px-2.5 py-1 rounded-md bg-green-600 text-white font-label-sm text-xs font-semibold shadow">
+                Holati A'lo
+              </span>
+            </div>
           </div>
-        </div>
+        ` : `
+          <div class="relative w-full aspect-[16/10] bg-gradient-to-br from-surface-container-high to-surface-container flex flex-col items-center justify-center text-outline gap-2 p-6 text-center">
+            <span class="material-symbols-outlined text-6xl opacity-40">no_photography</span>
+            <span class="text-base font-bold text-on-surface">Rasmsiz e'lon</span>
+            <span class="text-xs text-outline">Ushbu avtomobil uchun sotuvchi tomonidan rasm yuklanmagan</span>
+            <div class="absolute bottom-3 left-3 flex gap-2">
+              <span class="px-2.5 py-1 rounded-md bg-surface-container text-outline font-label-sm text-xs font-medium border border-outline-variant/40">
+                Rasmsiz
+              </span>
+            </div>
+          </div>
+        `}
 
         <!-- Body -->
         <div class="p-5 space-y-4">
@@ -882,7 +910,14 @@
           <!-- Rasm yuklash -->
           <div>
             <label class="block text-xs font-semibold text-on-surface mb-1">Avtomobil rasmi (ixtiyoriy)</label>
-            <input type="file" name="image" accept="image/*" class="w-full text-xs text-outline file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-secondary file:text-white hover:file:bg-secondary-container"/>
+            <input type="file" name="image" id="post-ad-image-input" accept="image/*" onchange="window.AvtoHub.handleImagePreview(event)" class="w-full text-xs text-outline file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-secondary file:text-white hover:file:bg-secondary-container cursor-pointer"/>
+            <div id="post-ad-image-preview" class="mt-2.5 hidden relative rounded-xl overflow-hidden border border-outline-variant/60 max-h-48 bg-surface-container">
+              <img id="post-ad-preview-img" src="" alt="Yuklangan rasm" class="w-full h-40 object-cover"/>
+              <button type="button" onclick="window.AvtoHub.clearImagePreview()" class="absolute top-2 right-2 p-1.5 rounded-full bg-surface-container-lowest/90 text-on-surface hover:bg-error hover:text-white transition-colors shadow">
+                <span class="material-symbols-outlined text-base">close</span>
+              </button>
+            </div>
+            <p class="text-[11px] text-outline mt-1">Rasm tanlamasangiz, e'lon rasmsiz ko'rinadi. Rasm tanlasangiz, aynan shu rasm ko'rinadi.</p>
           </div>
 
           <!-- Submit Button -->
@@ -897,6 +932,36 @@
     modal.onclick = (e) => {
       if (e.target === modal) modal.remove();
     };
+  }
+
+  let postAdImageBase64 = null;
+
+  function handleImagePreview(e) {
+    const file = e.target.files && e.target.files[0];
+    const preview = document.getElementById('post-ad-image-preview');
+    const img = document.getElementById('post-ad-preview-img');
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        postAdImageBase64 = evt.target.result;
+        if (img) img.src = postAdImageBase64;
+        if (preview) preview.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    } else {
+      postAdImageBase64 = null;
+      if (preview) preview.classList.add('hidden');
+    }
+  }
+
+  function clearImagePreview() {
+    const input = document.getElementById('post-ad-image-input');
+    const preview = document.getElementById('post-ad-image-preview');
+    const img = document.getElementById('post-ad-preview-img');
+    postAdImageBase64 = null;
+    if (input) input.value = '';
+    if (img) img.src = '';
+    if (preview) preview.classList.add('hidden');
   }
 
   function handleBrandChangeInForm(brand) {
@@ -943,6 +1008,14 @@
         const price = parseFloat(formData.get('price'));
         const year = formData.get('year');
 
+        // Agar backend'dan rasm qaytgan bo'lsa uni olamiz, yoki user yuklagan preview rasm, yoki rasmsiz (null)
+        let adImage = null;
+        if (json.data?.images && json.data.images.length > 0 && json.data.images[0].file) {
+          adImage = json.data.images[0].file;
+        } else if (postAdImageBase64) {
+          adImage = postAdImageBase64;
+        }
+
         const newCar = {
           id: json.data?.id || 'new-' + Date.now(),
           title: `${brand} ${model} ${year}`,
@@ -958,7 +1031,7 @@
           city: formData.get('city') || currentCity,
           dealer: 'Siz (Foydalanuvchi)',
           rating: 5.0,
-          image: DEFAULT_CARS[0].image,
+          image: adImage,
           isVip: false,
           isVerified: true,
           views: 1,
@@ -968,6 +1041,8 @@
           statusDisplay: 'Faol / Sotuvda',
           date: 'Bugun, ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
+
+        postAdImageBase64 = null;
 
         // Save to My Ads
         myAds.unshift(newCar);
@@ -1077,7 +1152,14 @@
                 <div class="space-y-2.5">
                   ${myAds.map(ad => `
                     <div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/30 flex gap-3 relative">
-                      <img src="${ad.image || DEFAULT_CARS[0].image}" alt="${ad.title}" class="w-20 h-16 object-cover rounded-lg flex-shrink-0 bg-surface-container"/>
+                      ${ad.image ? `
+                        <img src="${ad.image}" alt="${ad.title}" class="w-20 h-16 object-cover rounded-lg flex-shrink-0 bg-surface-container"/>
+                      ` : `
+                        <div class="w-20 h-16 rounded-lg flex-shrink-0 bg-surface-container flex flex-col items-center justify-center text-outline text-[10px] text-center p-1">
+                          <span class="material-symbols-outlined text-xl mb-0.5 opacity-60">directions_car</span>
+                          <span>Rasmsiz</span>
+                        </div>
+                      `}
                       <div class="flex-1 min-w-0">
                         <div class="flex items-start justify-between">
                           <h5 class="text-xs font-bold text-on-surface truncate">${ad.title}</h5>
@@ -1122,7 +1204,13 @@
                   ${allCars.filter(c => userFavorites.has(String(c.id))).map(fav => `
                     <div onclick="window.AvtoHub.openCarModal(window.AvtoHub.getCarById('${fav.id}'))" class="p-2.5 bg-surface-container-low rounded-xl border border-outline-variant/30 flex items-center justify-between cursor-pointer hover:bg-surface-container">
                       <div class="flex items-center gap-2.5 min-w-0">
-                        <img src="${fav.image}" class="w-12 h-12 object-cover rounded-lg flex-shrink-0"/>
+                        ${fav.image ? `
+                          <img src="${fav.image}" class="w-12 h-12 object-cover rounded-lg flex-shrink-0"/>
+                        ` : `
+                          <div class="w-12 h-12 rounded-lg flex-shrink-0 bg-surface-container flex items-center justify-center text-outline">
+                            <span class="material-symbols-outlined text-base">directions_car</span>
+                          </div>
+                        `}
                         <div class="min-w-0">
                           <h5 class="text-xs font-bold text-on-surface truncate">${fav.title}</h5>
                           <span class="text-xs font-bold text-secondary">$${fav.price.toLocaleString()}</span>
@@ -2106,6 +2194,8 @@
     selectModel,
     openCarModal,
     openPostAdModal,
+    handleImagePreview,
+    clearImagePreview,
     handleBrandChangeInForm,
     openMessagesModal,
     openProfileModal,
