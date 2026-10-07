@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+
+<html class="light" lang="uz"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AvtoHub - O'zbekiston Avtomobil Ekotizimi</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Space Grotesk & Geist -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-container": "#4069f2",
+            "error-container": "#ffdad6",
+            "background": "#f8f9ff",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#0039b5",
+            "inverse-on-surface": "#eaf1ff",
+            "inverse-primary": "#bec6e0",
+            "primary-fixed-dim": "#bec6e0",
+            "surface-variant": "#d3e4fe",
+            "tertiary-fixed": "#85f8c4",
+            "tertiary": "#000000",
+            "surface-container": "#e5eeff",
+            "secondary-fixed-dim": "#b7c4ff",
+            "on-surface": "#0b1c30",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-secondary": "#ffffff",
+            "outline-variant": "#c6c6cd",
+            "surface-tint": "#565e74",
+            "surface-container-highest": "#d3e4fe",
+            "primary-container": "#131b2e",
+            "on-primary-fixed": "#131b2e",
+            "on-primary-container": "#7c839b",
+            "outline": "#76777d",
+            "secondary-fixed": "#dce1ff",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-fixed": "#001551",
+            "surface": "#f8f9ff",
+            "on-primary": "#ffffff",
+            "on-tertiary-container": "#069669",
+            "surface-dim": "#cbdbf5",
+            "tertiary-fixed-dim": "#68dba9",
+            "on-secondary-container": "#fffbff",
+            "on-tertiary-fixed": "#002114",
+            "surface-container-low": "#eff4ff",
+            "primary-fixed": "#dae2fd",
+            "on-background": "#0b1c30",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#005137",
+            "tertiary-container": "#002114",
+            "surface-container-lowest": "#ffffff",
+            "on-error": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "inverse-surface": "#213145",
+            "on-error-container": "#93000a",
+            "on-surface-variant": "#45464d",
+            "primary": "#000000",
+            "secondary": "#1d4ed8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-md": "2rem",
+            "space-xl": "2.5rem",
+            "margin": "1rem",
+            "gutter-md": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "margin-lg": "3rem",
+            "gutter-lg": "2rem",
+            "space-md": "1rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Geist", "sans-serif"],
+            "headline-xl": ["Space Grotesk", "sans-serif"],
+            "headline-sm": ["Space Grotesk", "sans-serif"],
+            "body-sm": ["Geist", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "display-lg": ["Space Grotesk", "sans-serif"],
+            "label-sm": ["Geist", "sans-serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "body-xl": ["Geist", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "telemetry-num": ["Space Grotesk", "sans-serif"],
+            "headline-lg-mobile": ["Space Grotesk", "sans-serif"],
+            "headline-xl-mobile": ["Space Grotesk", "sans-serif"],
+            "label-md": ["Geist", "sans-serif"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-xl": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "telemetry-num": ["16px", { "lineHeight": "20px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex justify-center selection:bg-secondary-fixed selection:text-secondary">
+<!-- Mobile Simulator Container (Fluid on mobile, constrained on desktop) -->
+<div class="w-full max-w-md bg-background min-h-screen flex flex-col relative pb-24 shadow-sm border-x border-outline-variant/30">
+<!-- TopAppBar Component (from Shared Components JSON) -->
+<header class="fixed top-0 left-0 w-full z-40 flex items-center justify-between px-margin py-space-sm bg-surface-container-lowest dark:bg-surface-container-low shadow-sm max-w-md left-1/2 -translate-x-1/2">
+<!-- Location Selector & Brand Left -->
+<div class="flex items-center gap-2">
+<button onclick="window.AvtoHub.openLocationModal(); return false;" class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="location_on">location_on</span>
+<span class="font-label-md text-label-md font-semibold">Toshkent</span>
+<span class="material-symbols-outlined text-outline text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- Center Logo Anchor -->
+<a href="/" class="text-headline-md font-headline-md font-bold tracking-tight text-on-surface hover:text-secondary transition-colors">
+        AvtoHub
+</a>
+<!-- Trailing Action: Notifications -->
+<div class="flex items-center">
+<button onclick="window.AvtoHub.openNotificationsModal(); return false;" aria-label="Xabarlar" class="relative p-2 rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-150 text-on-surface-variant">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-14 px-margin space-y-4 pt-2">
+<!-- Global Search Bar with High Precision Styling -->
+<section class="w-full">
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl border border-outline-variant/50 p-1.5 shadow-sm focus-within:border-secondary focus-within:ring-2 focus-within:ring-secondary/15 transition-all">
+<div class="pl-2.5 pr-2 flex items-center text-outline">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+</div>
+<input class="w-full bg-transparent border-0 p-0 text-on-surface placeholder:text-outline font-body-md text-body-md focus:ring-0 focus:outline-none" placeholder="Mashina, ehtiyot qism, servis..." type="text"/>
+<div class="flex items-center gap-1 pr-1">
+<button onclick="window.AvtoHub.showToast('Ovozli qidiruv faollashtirildi... 🎙️'); return false;" class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors" title="Ovozli qidiruv">
+<span class="material-symbols-outlined text-lg" data-icon="mic">mic</span>
+</button>
+<button onclick="window.AvtoHub.openFilterModal(); return false;" class="p-1.5 rounded-lg bg-surface-container-low text-secondary hover:bg-surface-container transition-colors" title="Filtrlar">
+<span class="material-symbols-outlined text-lg" data-icon="tune">tune</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Hero & Quick Action Section -->
+<section class="space-y-3">
+<!-- Hero Statement Banner -->
+<div class="bg-primary-container text-on-primary rounded-xl p-4 shadow-sm border border-outline-variant/20 relative overflow-hidden">
+<div class="relative z-10 space-y-1">
+<div class="flex items-center gap-1.5">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-surface-variant font-semibold">O‘zbekiston #1 Avto Ekotizimi</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary tracking-tight">
+              Avtomobilingizni toping. Sotib oling. Soting.
+            </h1>
+<p class="font-body-sm text-body-sm text-surface-variant pt-1 max-w-[260px]">
+              Sun’iy intellekt tekshiruvi va rasmiy dilerlik kafolati bilan.
+            </p>
+</div>
+<!-- Engineering Wireframe Accent Icon in Background -->
+<div class="absolute -right-6 -bottom-6 text-on-primary-container/20 select-none pointer-events-none">
+<span class="material-symbols-outlined text-9xl" data-icon="directions_car">directions_car</span>
+</div>
+</div>
+<!-- Quick stats & shortcuts (4-column grid) -->
+<div class="grid grid-cols-4 gap-2">
+<!-- Item 1 -->
+<a class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/40 hover:border-secondary transition-all text-center group active:scale-95 duration-100 shadow-sm" href="/marketplace/">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors mb-1.5">
+<span class="material-symbols-outlined text-xl" data-icon="directions_car">directions_car</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface line-clamp-1 font-medium">Avtomobillar</span>
+</a>
+<!-- Item 2 -->
+<a class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/40 hover:border-secondary transition-all text-center group active:scale-95 duration-100 shadow-sm cursor-pointer" onclick="window.AvtoHub.openCalculatorModal(); return false;" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors mb-1.5">
+<span class="material-symbols-outlined text-xl" data-icon="calculate">calculate</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface line-clamp-1 font-medium">Kalkulyator</span>
+</a>
+<!-- Item 3 -->
+<a class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/40 hover:border-secondary transition-all text-center group active:scale-95 duration-100 shadow-sm cursor-pointer" onclick="window.AvtoHub.openServiceModal(); return false;" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors mb-1.5">
+<span class="material-symbols-outlined text-xl" data-icon="build">build</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface line-clamp-1 font-medium">Avtoservis</span>
+</a>
+<!-- Item 4 -->
+<a class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/40 hover:border-secondary transition-all text-center group active:scale-95 duration-100 shadow-sm cursor-pointer" onclick="window.AvtoHub.openPartsModal(); return false;" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors mb-1.5">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface line-clamp-1 font-medium">Ehtiyot qismlar</span>
+</a>
+</div>
+</section>
+<!-- AI Smart Search Spotlight Card -->
+<section class="w-full">
+<div class="rounded-xl p-4 bg-gradient-to-br from-surface-container-low via-surface-container-lowest to-surface-container border border-secondary/30 shadow-sm space-y-3 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="flex items-center justify-center w-7 h-7 rounded-lg bg-secondary text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="smart_toy">smart_toy</span>
+</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">AI yordamida qidiring</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold tracking-wide">
+              GPT-Auto v4
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Tabiiy tilda yozing: budjet, tana turi yoki ehtiyojingizni bildiring.
+          </p>
+<!-- AI Text Field Prompt Sample Container -->
+<div class="space-y-2">
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/60 p-2.5 focus-within:border-secondary transition-all">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-base mt-0.5" data-icon="chat_spark">chat_spark</span>
+<input class="w-full bg-transparent border-0 p-0 font-body-sm text-body-sm text-on-surface font-medium focus:ring-0 focus:outline-none" type="text" value="“20,000$ gacha tejamkor gibrid yoki krossover kerak”"/>
+</div>
+</div>
+<!-- Pre-made AI prompt tags -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+<button class="whitespace-nowrap px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant/40 font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors">
+                ⚡ 100 ming dollargacha oilaviy SUV
+              </button>
+<button class="whitespace-nowrap px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant/40 font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors">
+                🔋 Shahar uchun arzon elektrokar
+              </button>
+</div>
+<!-- Diagnostic Cobalt Action Button -->
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded bg-secondary hover:bg-secondary-container text-on-secondary font-label-lg text-label-lg font-semibold active:scale-[0.98] transition-all shadow-sm">
+<span class="material-symbols-outlined text-lg" data-icon="auto_awesome">auto_awesome</span>
+<span>AI orqali qidirish</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Popular Brands Carousel -->
+<section class="space-y-2">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Ommabop markalar</h2>
+<a class="font-label-md text-label-md text-secondary hover:underline flex items-center gap-0.5" href="/marketplace/">
+            Barchasi
+            <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-margin px-margin">
+<!-- Brand Pill 1: Chevrolet -->
+<div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/50 hover:border-secondary cursor-pointer shadow-sm transition-all active:scale-95">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface">CH</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Chevrolet</span>
+</div>
+<!-- Brand Pill 2: BYD -->
+<div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-secondary text-secondary bg-surface-container-low/50 cursor-pointer shadow-sm transition-all active:scale-95">
+<span class="w-6 h-6 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center text-xs font-bold">BYD</span>
+<span class="font-label-md text-label-md font-bold">BYD</span>
+</div>
+<!-- Brand Pill 3: Kia -->
+<div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/50 hover:border-secondary cursor-pointer shadow-sm transition-all active:scale-95">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface">KIA</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Kia</span>
+</div>
+<!-- Brand Pill 4: Hyundai -->
+<div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/50 hover:border-secondary cursor-pointer shadow-sm transition-all active:scale-95">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface">HY</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Hyundai</span>
+</div>
+<!-- Brand Pill 5: Toyota -->
+<div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/50 hover:border-secondary cursor-pointer shadow-sm transition-all active:scale-95">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface">TOY</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Toyota</span>
+</div>
+<!-- Brand Pill 6: BMW -->
+<div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/50 hover:border-secondary cursor-pointer shadow-sm transition-all active:scale-95">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface">BMW</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">BMW</span>
+</div>
+<!-- Brand Pill 7: Chery -->
+<div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/50 hover:border-secondary cursor-pointer shadow-sm transition-all active:scale-95">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface">CHY</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Chery</span>
+</div>
+</div>
+</section>
+<!-- Tezkor Filtrlar (Quick Filters Dropdowns) -->
+<section class="space-y-2">
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-margin px-margin">
+<!-- Filter 1: Marka -->
+<button id="quick-filter-brand-btn" onclick="window.AvtoHub.openBrandPickerModal(); return false;" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant/60 text-on-surface hover:border-secondary font-label-md text-label-md font-medium transition-all shadow-sm cursor-pointer">
+<span id="quick-filter-brand-label">Marka</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</button>
+<!-- Filter 2: Model -->
+<button id="quick-filter-model-btn" onclick="window.AvtoHub.openModelPickerModal(); return false;" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant/60 text-on-surface hover:border-secondary font-label-md text-label-md font-medium transition-all shadow-sm cursor-pointer">
+<span id="quick-filter-model-label">Model</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</button>
+<!-- Filter 3: Narx oralig'i -->
+<button onclick="window.AvtoHub.openFilterModal(); return false;" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant/60 text-on-surface hover:border-secondary font-label-md text-label-md font-medium transition-all shadow-sm cursor-pointer">
+<span>Narx oralig‘i</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="tune">tune</span>
+</button>
+<!-- Filter 4: Viloyat -->
+<button onclick="window.AvtoHub.openLocationModal(); return false;" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant/60 text-on-surface hover:border-secondary font-label-md text-label-md font-medium transition-all shadow-sm cursor-pointer">
+<span id="quick-filter-city-label">Viloyat</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="location_pin">location_pin</span>
+</button>
+</div>
+</section>
+<!-- FinTech & Ecosystem Banner (Credit preview) -->
+<section class="w-full">
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-sm flex items-center justify-between relative overflow-hidden">
+<div class="space-y-1 z-10 max-w-[70%]">
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-base" data-icon="account_balance">account_balance</span>
+<span class="font-label-sm text-label-sm font-bold tracking-tight">Qulay Avtokredit</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">
+              Yillik 18% dan
+            </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+              Boshlang‘ich to‘lov 20% • 5 yilgacha
+            </div>
+</div>
+<div class="z-10">
+<button class="px-3.5 py-2 rounded bg-primary text-on-primary hover:bg-on-surface-variant font-label-md text-label-md font-semibold transition-all active:scale-95 shadow-sm">
+              Hisoblash
+            </button>
+</div>
+<!-- Subtle Decorative Tone Line -->
+<div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-surface-container-high/40 to-transparent pointer-events-none"></div>
+</div>
+</section>
+<!-- Featured / Premium Listings (Saralangan avtomobillar) -->
+<section class="space-y-3 pt-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="text-base">🔥</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Premium E’lonlar</h2>
+</div>
+<a class="font-label-md text-label-md text-secondary hover:underline flex items-center gap-0.5" href="/marketplace/">
+            Barchasi (4,892)
+            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="space-y-3.5">
+<!-- Car Card 1: Chevrolet Malibu 2 Premier -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden shadow-sm hover:border-secondary transition-all">
+<!-- Image Frame -->
+<div class="relative w-full aspect-[16/10] bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A modern graphite gray Chevrolet Malibu 2 Premier sedan parked in an architectural showroom with clean minimalist lighting. The vehicle gleams under high-key automotive studio lights reflecting titanium hues and precise body lines against a bright neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDAekrZWtXFqfgDzWDPbr5h1nOlGeR0bfp0LRXx02j9zdx-6kv-hJq_1qzftSsj8l630Z1PBVEIZy6LMQoaJcdUp27KKb6ulGtah8zDy_TDdPffQOB5yZw9CqwSaCacFol9Y5LNSb2kkWsprHM5DakIlD1vV3s7P3LYF7MjMEQcsVxh821fUusHZmtF4fQ-r3CWgreGDWw7MVf5c7qV34hqYAcSGC5UJ74wXB7oZc"/>
+<!-- Badges -->
+<div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm text-on-tertiary-container font-label-sm text-label-sm font-semibold border border-tertiary-fixed-dim/60 shadow-sm">
+<span class="material-symbols-outlined text-xs" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                  AI Verifikatsiyalangan
+                </span>
+</div>
+<!-- Favorite Button -->
+<button aria-label="Sevimlilarga qo'shish" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm flex items-center justify-center text-outline hover:text-error transition-colors shadow-sm active:scale-90">
+<span class="material-symbols-outlined text-lg" data-icon="favorite">favorite</span>
+</button>
+</div>
+<!-- Card Specs & Content -->
+<div class="p-3.5 space-y-2.5">
+<!-- Pricing -->
+<div class="flex items-baseline justify-between">
+<div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">$25,500</span>
+<span class="font-body-sm text-body-sm text-outline ml-1.5">≈ 324 mln so'm</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline bg-surface-container-low px-1.5 py-0.5 rounded">2024</span>
+</div>
+<!-- Car Title -->
+<h3 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">
+                Chevrolet Malibu 2 Premier
+              </h3>
+<!-- Technical Specs Matrix Chip -->
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm flex-wrap">
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">18,000 km</span>
+<span class="text-outline">•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">Avtomat</span>
+<span class="text-outline">•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">2.0 Turbo</span>
+</div>
+<!-- Location & Dealer Footer -->
+<div class="pt-2 border-t border-outline-variant/30 flex items-center justify-between text-outline font-label-md text-label-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-outline" data-icon="location_on">location_on</span>
+<span>Toshkent, Chilonzor</span>
+</div>
+<div class="flex items-center gap-1 font-semibold text-on-surface">
+<span>ABC Auto</span>
+<span class="flex items-center text-secondary font-bold text-xs">
+<span class="material-symbols-outlined text-xs" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                    4.9
+                  </span>
+</div>
+</div>
+</div>
+</article>
+<!-- Car Card 2: BYD Song Plus Champion EV -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden shadow-sm hover:border-secondary transition-all">
+<!-- Image Frame -->
+<div class="relative w-full aspect-[16/10] bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sleek snow white BYD Song Plus Champion electric crossover vehicle displayed in an ultra-modern urban dealership courtyard in Tashkent. The setting is bright daytime with crisp shadows, showcasing aerodynamic contours and contemporary electric vehicle aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfIiW94Am-BKq0h2AvqkZrQiXHAa6YQUv9Ssh2LzGvuHFtrpeNlpLdbdnfV1vj7TAyxkZf88UdmoMYxnKMCj1Qil1Q_neHGROxxxK588m3tEEmzUfK4XyW8epohYwcpWw8M4RA0WPM_r1K_kmu2DoLeYHeSGy6F3dpKQjSs-v8wuZA5urLEfb62-y__gGAVoTtFuApIF26lN4or6z-cAorqov2vahl5B6iaNQ-5uo"/>
+<!-- Badges -->
+<div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="material-symbols-outlined text-xs" data-icon="rocket_launch">rocket_launch</span>
+                  TOP
+                </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm text-on-tertiary-container font-label-sm text-label-sm font-semibold border border-tertiary-fixed-dim/60 shadow-sm">
+<span class="material-symbols-outlined text-xs" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                  Verified Seller
+                </span>
+</div>
+<!-- Favorite Button -->
+<button aria-label="Sevimlilarga qo'shish" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm flex items-center justify-center text-outline hover:text-error transition-colors shadow-sm active:scale-90">
+<span class="material-symbols-outlined text-lg" data-icon="favorite">favorite</span>
+</button>
+</div>
+<!-- Card Specs & Content -->
+<div class="p-3.5 space-y-2.5">
+<!-- Pricing -->
+<div class="flex items-baseline justify-between">
+<div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">$28,200</span>
+<span class="font-body-sm text-body-sm text-outline ml-1.5">≈ 358 mln so'm</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline bg-surface-container-low px-1.5 py-0.5 rounded">2024</span>
+</div>
+<!-- Car Title -->
+<h3 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">
+                BYD Song Plus Champion EV
+              </h3>
+<!-- Technical Specs Matrix Chip -->
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm flex-wrap">
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">4,500 km</span>
+<span class="text-outline">•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm text-secondary font-semibold">Elektr (EV)</span>
+<span class="text-outline">•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">Flagship</span>
+</div>
+<!-- Location & Dealer Footer -->
+<div class="pt-2 border-t border-outline-variant/30 flex items-center justify-between text-outline font-label-md text-label-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-outline" data-icon="location_on">location_on</span>
+<span>Toshkent, Sergeli</span>
+</div>
+<div class="flex items-center gap-1 font-semibold text-on-surface">
+<span>ElectroMotors</span>
+<span class="flex items-center text-secondary font-bold text-xs">
+<span class="material-symbols-outlined text-xs" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                    5.0
+                  </span>
+</div>
+</div>
+</div>
+</article>
+<!-- Car Card 3: Chevrolet Cobalt Style AT -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden shadow-sm hover:border-secondary transition-all">
+<!-- Image Frame -->
+<div class="relative w-full aspect-[16/10] bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean silver metallic Chevrolet Cobalt Style sedan parked on a broad paved boulevard under clear sky conditions in Samarkand. The automotive photo is sharp, realistic, high contrast, capturing honest vehicle details in crisp natural morning sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxQDc2sWJaRWbBhr7IRj4sjR1yy1k9YJEzAm3f4yjAw8b6Y6eMMr0y7tVv1wrgYK2cTxsO6LBxf4Z6Ix-lKMThpdRle0nP7S6l9HIrACMvMOdj0b6JYaDObQsLJhYXp5Wek0shOJPK7yFXDj5ddZMw0aXRtZ2Kr1QhQBiPwAnoEX2WrVzmN4IzlLVyaX1rW_NC7ihyqT46proo9yRYdL_Swqcum1iFLrNwOCeUAiw"/>
+<!-- Badges -->
+<div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface-variant font-label-sm text-label-sm font-semibold border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined text-xs text-secondary" data-icon="person">person</span>
+                  Shaxsiy e'lon
+                </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm font-semibold border border-outline-variant/40 shadow-sm">
+                  Real rasm
+                </span>
+</div>
+<!-- Favorite Button -->
+<button aria-label="Sevimlilarga qo'shish" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm flex items-center justify-center text-outline hover:text-error transition-colors shadow-sm active:scale-90">
+<span class="material-symbols-outlined text-lg" data-icon="favorite">favorite</span>
+</button>
+</div>
+<!-- Card Specs & Content -->
+<div class="p-3.5 space-y-2.5">
+<!-- Pricing -->
+<div class="flex items-baseline justify-between">
+<div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">$12,800</span>
+<span class="font-body-sm text-body-sm text-outline ml-1.5">≈ 163 mln so'm</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline bg-surface-container-low px-1.5 py-0.5 rounded">2023</span>
+</div>
+<!-- Car Title -->
+<h3 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">
+                Chevrolet Cobalt Style AT
+              </h3>
+<!-- Technical Specs Matrix Chip -->
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm flex-wrap">
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">32,000 km</span>
+<span class="text-outline">•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">Avtomat</span>
+<span class="text-outline">•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded font-label-sm text-label-sm">1.5L Benzin</span>
+</div>
+<!-- Location & Dealer Footer -->
+<div class="pt-2 border-t border-outline-variant/30 flex items-center justify-between text-outline font-label-md text-label-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-outline" data-icon="location_on">location_on</span>
+<span>Samarqand shahri</span>
+</div>
+<div class="flex items-center gap-1 font-medium text-outline">
+<span>Egasi tomonidan</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Vehicle Inspection / Security Guarantee Trust Tile -->
+<section class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="verified_user">verified_user</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">AvtoHub Kafolati</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Har bir ko‘rikdan o‘tgan avtomobil uchun 150 ta nuqta bo‘yicha texnik diagnostika hisoboti va yuridik tozalik sertifikati taqdim etiladi.
+        </p>
+</section>
+</main>
+<!-- BottomNavBar Component (Exact execution from Shared Components JSON) -->
+<!-- The primary intent is Home Screen, hence label 'Asosiy' is ACTIVE -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex items-center justify-around px-space-xs py-space-sm h-14 bg-surface-container-lowest dark:bg-surface-container-low shadow-lg max-w-md left-1/2 -translate-x-1/2">
+<!-- Tab 1: Asosiy (ACTIVE destination) -->
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-label-md text-label-md active:scale-95 duration-100 ease-out hover:text-secondary" href="/">
+<span class="material-symbols-outlined text-xl" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="mt-0.5">Asosiy</span>
+</a>
+<!-- Tab 2: Avtomobillar -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline font-label-sm text-label-sm active:scale-95 duration-100 ease-out hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="/marketplace/">
+<span class="material-symbols-outlined text-xl" data-icon="directions_car">directions_car</span>
+<span class="mt-0.5">Avtomobillar</span>
+</a>
+<!-- Tab 3: E'lon berish (Highlighted blue center action) -->
+<a class="flex flex-col items-center justify-center -mt-4 active:scale-95 duration-100 ease-out group" href="#" onclick="window.AvtoHub.openPostAdModal(); return false;" title="E'lon berish">
+<div class="w-11 h-11 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-md group-hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-2xl" data-icon="add_circle">add_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-bold mt-0.5">E'lon berish</span>
+</a>
+<!-- Tab 4: Xabarlar -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline font-label-sm text-label-sm active:scale-95 duration-100 ease-out hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#" onclick="window.AvtoHub.openMessagesModal(); return false;">
+<span class="material-symbols-outlined text-xl" data-icon="chat_bubble">chat_bubble</span>
+<span class="mt-0.5">Xabarlar</span>
+</a>
+<!-- Tab 5: Profil -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline font-label-sm text-label-sm active:scale-95 duration-100 ease-out hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#" onclick="window.AvtoHub.openProfileModal(); return false;">
+<span class="material-symbols-outlined text-xl" data-icon="person">person</span>
+<span class="mt-0.5">Profil</span>
+</a>
+</nav>
+</div>
+<script src="/static/avtohub.js" onerror="this.onerror=null;this.src='avtohub.js';"></script>
+</body></html>

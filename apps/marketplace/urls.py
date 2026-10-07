@@ -1,0 +1,8 @@
+from rest_framework.routers import DefaultRouter
+from .views import ListingViewSet, FavoriteViewSet
+
+router = DefaultRouter()
+router.register(r'listings', ListingViewSet, basename='listing')
+router.register(r'favorites', FavoriteViewSet, basename='favorite')
+
+urlpatterns = router.urls
