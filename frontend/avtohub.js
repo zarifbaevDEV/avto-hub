@@ -114,7 +114,7 @@
       city: 'Toshkent',
       dealer: 'ABC Auto',
       rating: 4.9,
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBDAekrZWtXFqfgDzWDPbr5h1nOlGeR0bfp0LRXx02j9zdx-6kv-hJq_1qzftSsj8l630Z1PBVEIZy6LMQoaJcdUp27KKb6ulGtah8zDy_TDdPffQOB5yZw9CqwSaCacFol9Y5LNSb2kkWsprHM5DakIlD1vV3s7P3LYF7MjMEQcsVxh821fUusHZmtF4fQ-r3CWgreGDWw7MVf5c7qV34hqYAcSGC5UJ74wXB7oZc',
+      image: '/media/vehicles/defaults/malibu.jpg',
       isVip: true,
       isVerified: true,
       views: 342,
@@ -136,7 +136,7 @@
       city: 'Toshkent',
       dealer: 'BYD Sergeli Official',
       rating: 5.0,
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAfIiW94Am-BKq0h2AvqkZrQiXHAa6YQUv9Ssh2LzGvuHFtrpeNlpLdbdnfV1vj7TAyxkZf88UdmoMYxnKMCj1Qil1Q_neHGROxxxK588m3tEEmzUfK4XyW8epohYwcpWw8M4RA0WPM_r1K_kmu2DoLeYHeSGy6F3dpKQjSs-v8wuZA5urLEfb62-y__gGAVoTtFuApIF26lN4or6z-cAorqov2vahl5B6iaNQ-5uo',
+      image: '/media/vehicles/defaults/song_plus.jpg',
       isVip: true,
       isVerified: true,
       views: 512,
@@ -158,7 +158,7 @@
       city: 'Toshkent',
       dealer: 'Kia Rohat',
       rating: 4.8,
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDxQDc2sWJaRWbBhr7IRj4sjR1yy1k9YJEzAm3f4yjAw8b6Y6eMMr0y7tVv1wrgYK2cTxsO6LBxf4Z6Ix-lKMThpdRle0nP7S6l9HIrACMvMOdj0b6JYaDObQsLJhYXp5Wek0shOJPK7yFXDj5ddZMw0aXRtZ2Kr1QhQBiPwAnoEX2WrVzmN4IzlLVyaX1rW_NC7ihyqT46proo9yRYdL_Swqcum1iFLrNwOCeUAiw',
+      image: '/media/vehicles/defaults/kia_k5.jpg',
       isVip: true,
       isVerified: true,
       views: 420,
@@ -180,7 +180,7 @@
       city: 'Samarqand',
       dealer: 'SamAvto Trade',
       rating: 4.7,
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDkMYcyaL1eVbqT8GPyLSPMjF3rEeSZrK2WY8cGXQt4uZROYqxNKYP2UciUmiNlhgtA7u0GboA58ifCc6ee0ckUAHPlXMWMSGt8XuDBNgvkP_ngFFWvziExa0-ePrWouNFHOP8V1q-TLCd5ebl6QcnLBGhDR30GFq3tEUB74SbTSWoyUkzTh9A1x-e2lptgkkNdn0KwdtaBgwTVMAdLKTNtRpxxBwXA9zw4X6jKc-s',
+      image: '/media/vehicles/defaults/tracker.jpg',
       isVip: false,
       isVerified: true,
       views: 280,
@@ -202,7 +202,7 @@
       city: 'Toshkent',
       dealer: 'Xususiy sotuvchi',
       rating: 4.9,
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBf5JdoyXDzCEaskcvYwTx1S5Dl1nxWSXV7ijhsrsGfLbQGmIBypxfvlsW-Zw00wo01Bo-gfAMuQiJl1kd-d6MS8K-tV2WWLbWEVHAxcnIJOgRzUIwi0kjewPCyK6z2joQfYWBeLxoh4hSYVq2pN4bzg86RUKGlKfsIhkhkQ9PO_J8goFN8ndD4RLIHtfwzGDrec7wvnIyG6RLWvZOkYbGzpBYeAb0MBcrexS_eBbI',
+      image: '/media/vehicles/defaults/cobalt.jpg',
       isVip: false,
       isVerified: true,
       views: 610,
@@ -224,12 +224,34 @@
       city: 'Farg\'ona',
       dealer: 'Farg\'ona Avto Lizing',
       rating: 5.0,
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDyBRcckW6Qxgc1OVA6Wt_e7gfHyaGnzNwyvyps5yIA7c-Ewmpc_fvObyUC0bkrlmy1-Nym55K8m9cV27QgMF266qaK13yD6drBW9eWLxgqjAAv_Z4Pns1IQDfUx2jT1dWGepGONX-ogxaqkEV6loViS2dJEfRy8eNb197VQUlNCyw2I56EDID_24iC8jPUyx3GcqpIc_HqWsLVMiL4uarTdH3MDN3qoEB9wIyVtks',
+      image: '/media/vehicles/defaults/camry.jpg',
       isVip: true,
       isVerified: true,
       views: 390,
       phone: '+998 95 111 22 33',
       description: 'Juda tejamkor, 100 km ga 4.8 litr yoqilg\'i sarflaydi. Toyota rasmiy servisida xizmat ko\'rsatilgan.'
+    },
+    {
+      id: 'hyundai-elantra-2023',
+      title: 'Hyundai Elantra 2023',
+      brand: 'Hyundai',
+      model: 'Elantra',
+      year: 2023,
+      price: 21500,
+      priceUzs: '273 mln so\'m',
+      mileage: 28000,
+      color: 'Kumushrang',
+      fuel: 'Benzin',
+      transmission: 'Avtomat',
+      city: 'Toshkent',
+      dealer: 'Hyundai Premium',
+      rating: 4.9,
+      image: '/media/vehicles/defaults/elantra.jpg',
+      isVip: false,
+      isVerified: true,
+      views: 310,
+      phone: '+998 90 444 33 22',
+      description: 'Yangi holatda, to\'liq salon opsiyalari, lyuk, kruiz-kontrol, Apple CarPlay va Android Auto.'
     }
   ];
 
@@ -253,7 +275,7 @@
         statusDisplay: 'Faol / Sotuvda',
         views: 124,
         date: 'Bugun, 15:30',
-        image: DEFAULT_CARS[4].image
+        image: '/media/vehicles/defaults/cobalt.jpg'
       }
     ];
     localStorage.setItem('avtohub_user_my_ads', JSON.stringify(myAds));
@@ -297,6 +319,34 @@
     if (el) el.remove();
   }
 
+  // Resolve authentic car image by model/brand or uploaded file
+  function resolveCarImage(itemOrCar) {
+    if (!itemOrCar) return '/media/vehicles/defaults/malibu.jpg';
+    // 1. Agar backend'dan yuklangan haqiqiy rasm fayli bo'lsa
+    if (itemOrCar.images && itemOrCar.images.length > 0 && itemOrCar.images[0].file) {
+      return itemOrCar.images[0].file;
+    }
+    // 2. Agar avvaldan to'g'ri lokal rasm yo'li bo'lsa
+    if (typeof itemOrCar.image === 'string' && itemOrCar.image.trim() !== '' && !itemOrCar.image.includes('aida-public')) {
+      return itemOrCar.image;
+    }
+    // 3. Avtomobil nomi, markasi yoki modeliga moslashtirilgan 100% o'ziniki bo'lgan rasm
+    const v = itemOrCar.vehicle_detail || {};
+    const text = `${itemOrCar.title || ''} ${v.brand_name || itemOrCar.brand || ''} ${v.model_name || itemOrCar.model || ''}`.toLowerCase();
+
+    if (text.includes('malibu')) return '/media/vehicles/defaults/malibu.jpg';
+    if (text.includes('song') || (text.includes('byd') && text.includes('plus'))) return '/media/vehicles/defaults/song_plus.jpg';
+    if (text.includes('chazor')) return '/media/vehicles/defaults/chazor.jpg';
+    if (text.includes('k5') || text.includes('kia')) return '/media/vehicles/defaults/kia_k5.jpg';
+    if (text.includes('tracker')) return '/media/vehicles/defaults/tracker.jpg';
+    if (text.includes('onix')) return '/media/vehicles/defaults/onix.jpg';
+    if (text.includes('cobalt') || text.includes('lacetti') || text.includes('gentra')) return '/media/vehicles/defaults/cobalt.jpg';
+    if (text.includes('camry') || text.includes('toyota')) return '/media/vehicles/defaults/camry.jpg';
+    if (text.includes('elantra') || text.includes('hyundai')) return '/media/vehicles/defaults/elantra.jpg';
+
+    return '/media/vehicles/defaults/malibu.jpg';
+  }
+
   // Load cars from API or fallback
   async function loadCars() {
     try {
@@ -307,12 +357,14 @@
         if (apiCars.length > 0) {
           const mappedApiCars = apiCars.map(item => {
             const v = item.vehicle_detail || {};
+            const brandName = v.brand_detail?.name || v.brand_name || (item.title ? item.title.split(' ')[0] : 'Boshqa');
+            const modelName = v.model_detail?.name || v.model_name || '';
             const price = parseFloat(item.price || 0);
             return {
               id: item.id,
-              title: item.title || `${v.brand_name || ''} ${v.model_name || ''}`,
-              brand: v.brand_name || 'Boshqa',
-              model: v.model_name || '',
+              title: item.title || `${brandName} ${modelName}`,
+              brand: brandName,
+              model: modelName,
               year: v.year || 2023,
               price: price,
               priceUzs: `≈ ${(price * 12.7).toFixed(0)} mln so'm`,
@@ -323,7 +375,7 @@
               city: v.city || 'Toshkent',
               dealer: item.seller_detail?.first_name || 'AvtoHub Sotuvchi',
               rating: 4.9,
-              image: (item.images && item.images.length > 0 && item.images[0].file) ? item.images[0].file : null,
+              image: (item.images && item.images.length > 0 && item.images[0].file) ? item.images[0].file : resolveCarImage(item),
               isVip: item.is_vip,
               isVerified: true,
               views: item.views || 45,
@@ -331,6 +383,15 @@
               description: item.description || 'Holati a\'lo darajada.'
             };
           });
+
+          // myAds dagi rasmlarni ham tekshirib to'g'irlash
+          if (myAds && myAds.length > 0) {
+            myAds = myAds.map(ad => ({
+              ...ad,
+              image: resolveCarImage(ad)
+            }));
+            localStorage.setItem('avtohub_user_my_ads', JSON.stringify(myAds));
+          }
 
           const existingTitles = new Set(mappedApiCars.map(c => c.title));
           const extraDefaults = DEFAULT_CARS.filter(c => !existingTitles.has(c.title));
@@ -414,18 +475,13 @@
         const isFav = userFavorites.has(String(car.id));
         const isGrid = isMarketplace && viewMode === 'grid';
 
+        const carImg = car.image || resolveCarImage(car);
+
         if (isGrid) {
           return `
             <article data-car-id="${car.id}" class="car-card cursor-pointer bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden shadow-sm hover:border-secondary hover:shadow-md transition-all duration-200 flex flex-col">
               <div class="relative w-full aspect-[4/3] bg-surface-container-high overflow-hidden">
-                ${car.image ? `
-                  <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${car.image}" alt="${car.title}" loading="lazy"/>
-                ` : `
-                  <div class="w-full h-full bg-gradient-to-br from-surface-container-high to-surface-container flex flex-col items-center justify-center text-outline select-none p-3 text-center">
-                    <span class="material-symbols-outlined text-3xl opacity-50 mb-1">directions_car</span>
-                    <span class="text-xs font-semibold text-on-surface-variant">Rasmsiz e'lon</span>
-                  </div>
-                `}
+                <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${carImg}" alt="${car.title}" loading="lazy" onerror="this.onerror=null; this.src='${DEFAULT_CARS[0].image}';"/>
                 <button aria-label="Sevimlilarga qo'shish" onclick="event.stopPropagation(); window.AvtoHub.toggleFavorite('${car.id}', this)" class="fav-btn absolute top-2 right-2 w-7 h-7 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm flex items-center justify-center ${isFav ? 'text-error' : 'text-outline'} hover:text-error transition-colors shadow-sm active:scale-90">
                   <span class="material-symbols-outlined text-base" style="${isFav ? "font-variation-settings: 'FILL' 1;" : ''}">favorite</span>
                 </button>
@@ -450,15 +506,7 @@
         return `
           <article data-car-id="${car.id}" class="car-card cursor-pointer bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden shadow-sm hover:border-secondary hover:shadow-md transition-all duration-200">
             <div class="relative w-full aspect-[16/10] bg-surface-container-high overflow-hidden">
-              ${car.image ? `
-                <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${car.image}" alt="${car.title}" loading="lazy"/>
-              ` : `
-                <div class="w-full h-full bg-gradient-to-br from-surface-container-high to-surface-container flex flex-col items-center justify-center text-outline select-none p-4 text-center">
-                  <span class="material-symbols-outlined text-4xl opacity-50 mb-1">directions_car</span>
-                  <span class="text-xs font-semibold text-on-surface-variant">Rasmsiz e'lon</span>
-                  <span class="text-[10px] opacity-60">Sotuvchi rasm yuklamagan</span>
-                </div>
-              `}
+              <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${carImg}" alt="${car.title}" loading="lazy" onerror="this.onerror=null; this.src='${DEFAULT_CARS[0].image}';"/>
               <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5 pointer-events-none">
                 ${car.isVip ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold shadow-sm"><span class="material-symbols-outlined text-xs">rocket_launch</span> VIP</span>' : ''}
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm text-on-tertiary-container font-label-sm text-label-sm font-semibold border border-tertiary-fixed-dim/60 shadow-sm">
@@ -668,30 +716,17 @@
         </button>
 
         <!-- Big Image Header -->
-        ${car.image ? `
-          <div class="relative w-full aspect-[16/10] bg-surface-container overflow-hidden">
-            <img src="${car.image}" alt="${car.title}" class="w-full h-full object-cover"/>
-            <div class="absolute bottom-3 left-3 flex gap-2">
-              <span class="px-2.5 py-1 rounded-md bg-secondary text-white font-label-sm text-xs font-semibold shadow">
-                Tasdiqlangan VIN
-              </span>
-              <span class="px-2.5 py-1 rounded-md bg-green-600 text-white font-label-sm text-xs font-semibold shadow">
-                Holati A'lo
-              </span>
-            </div>
+        <div class="relative w-full aspect-[16/10] bg-surface-container overflow-hidden">
+          <img src="${car.image || resolveCarImage(car)}" alt="${car.title}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${DEFAULT_CARS[0].image}';"/>
+          <div class="absolute bottom-3 left-3 flex gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-secondary text-white font-label-sm text-xs font-semibold shadow">
+              Tasdiqlangan VIN
+            </span>
+            <span class="px-2.5 py-1 rounded-md bg-green-600 text-white font-label-sm text-xs font-semibold shadow">
+              Holati A'lo
+            </span>
           </div>
-        ` : `
-          <div class="relative w-full aspect-[16/10] bg-gradient-to-br from-surface-container-high to-surface-container flex flex-col items-center justify-center text-outline gap-2 p-6 text-center">
-            <span class="material-symbols-outlined text-6xl opacity-40">no_photography</span>
-            <span class="text-base font-bold text-on-surface">Rasmsiz e'lon</span>
-            <span class="text-xs text-outline">Ushbu avtomobil uchun sotuvchi tomonidan rasm yuklanmagan</span>
-            <div class="absolute bottom-3 left-3 flex gap-2">
-              <span class="px-2.5 py-1 rounded-md bg-surface-container text-outline font-label-sm text-xs font-medium border border-outline-variant/40">
-                Rasmsiz
-              </span>
-            </div>
-          </div>
-        `}
+        </div>
 
         <!-- Body -->
         <div class="p-5 space-y-4">
@@ -907,17 +942,23 @@
             <textarea name="description" rows="2" placeholder="Kraskasi toza, hech qanday xarajati yo'q, yangi balonlar taqilgan..." class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"></textarea>
           </div>
 
-          <!-- Rasm yuklash -->
+          <!-- Rasm yuklash (Majburiy) -->
           <div>
-            <label class="block text-xs font-semibold text-on-surface mb-1">Avtomobil rasmi (ixtiyoriy)</label>
-            <input type="file" name="image" id="post-ad-image-input" accept="image/*" onchange="window.AvtoHub.handleImagePreview(event)" class="w-full text-xs text-outline file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-secondary file:text-white hover:file:bg-secondary-container cursor-pointer"/>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-xs font-semibold text-on-surface">Avtomobil rasmi <span class="text-error font-bold">*</span></label>
+              <span class="text-[10px] text-error font-semibold uppercase tracking-wider bg-error/10 px-2 py-0.5 rounded">Majburiy</span>
+            </div>
+            <input type="file" name="image" id="post-ad-image-input" accept="image/*" required onchange="window.AvtoHub.handleImagePreview(event)" class="w-full text-xs text-outline file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-secondary file:text-white hover:file:bg-secondary-container cursor-pointer bg-surface-container-low border border-outline-variant/60 rounded-xl p-1"/>
             <div id="post-ad-image-preview" class="mt-2.5 hidden relative rounded-xl overflow-hidden border border-outline-variant/60 max-h-48 bg-surface-container">
               <img id="post-ad-preview-img" src="" alt="Yuklangan rasm" class="w-full h-40 object-cover"/>
               <button type="button" onclick="window.AvtoHub.clearImagePreview()" class="absolute top-2 right-2 p-1.5 rounded-full bg-surface-container-lowest/90 text-on-surface hover:bg-error hover:text-white transition-colors shadow">
                 <span class="material-symbols-outlined text-base">close</span>
               </button>
             </div>
-            <p class="text-[11px] text-outline mt-1">Rasm tanlamasangiz, e'lon rasmsiz ko'rinadi. Rasm tanlasangiz, aynan shu rasm ko'rinadi.</p>
+            <p id="post-ad-image-hint" class="text-[11px] text-error font-medium mt-1.5 flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">error</span>
+              Mashina rasmini qo'ying! Rasm yuklanmasa e'lon qabul qilinmaydi.
+            </p>
           </div>
 
           <!-- Submit Button -->
@@ -940,17 +981,28 @@
     const file = e.target.files && e.target.files[0];
     const preview = document.getElementById('post-ad-image-preview');
     const img = document.getElementById('post-ad-preview-img');
+    const hint = document.getElementById('post-ad-image-hint');
+    const input = document.getElementById('post-ad-image-input');
     if (file) {
       const reader = new FileReader();
       reader.onload = function(evt) {
         postAdImageBase64 = evt.target.result;
         if (img) img.src = postAdImageBase64;
         if (preview) preview.classList.remove('hidden');
+        if (hint) {
+          hint.className = 'text-[11px] text-green-600 font-medium mt-1 flex items-center gap-1';
+          hint.innerHTML = '<span class="material-symbols-outlined text-xs">check_circle</span> Mashina rasmi tanlandi';
+        }
+        if (input) input.classList.remove('border-error', 'ring-2', 'ring-error');
       };
       reader.readAsDataURL(file);
     } else {
       postAdImageBase64 = null;
       if (preview) preview.classList.add('hidden');
+      if (hint) {
+        hint.className = 'text-[11px] text-error font-medium mt-1 flex items-center gap-1';
+        hint.innerHTML = '<span class="material-symbols-outlined text-xs">error</span> Mashina rasmini qo\'ying! Rasm yuklanmasa e\'lon qabul qilinmaydi.';
+      }
     }
   }
 
@@ -958,10 +1010,15 @@
     const input = document.getElementById('post-ad-image-input');
     const preview = document.getElementById('post-ad-image-preview');
     const img = document.getElementById('post-ad-preview-img');
+    const hint = document.getElementById('post-ad-image-hint');
     postAdImageBase64 = null;
     if (input) input.value = '';
     if (img) img.src = '';
     if (preview) preview.classList.add('hidden');
+    if (hint) {
+      hint.className = 'text-[11px] text-error font-medium mt-1 flex items-center gap-1';
+      hint.innerHTML = '<span class="material-symbols-outlined text-xs">error</span> Mashina rasmini qo\'ying! Rasm yuklanmasa e\'lon qabul qilinmaydi.';
+    }
   }
 
   function handleBrandChangeInForm(brand) {
@@ -987,6 +1044,21 @@
     e.preventDefault();
     const form = e.target;
     const btn = document.getElementById('submit-ad-btn');
+    const imageInput = document.getElementById('post-ad-image-input');
+    const imageFile = imageInput?.files && imageInput.files[0];
+
+    // Tekshirish: agar rasm yuklanmagan bo'lsa qat'iy talab qilish
+    if (!imageFile && !postAdImageBase64) {
+      showToast("Iltimos, mashina rasmini qo'ying!", 'error');
+      if (imageInput) {
+        imageInput.focus();
+        imageInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        imageInput.classList.add('border-error', 'ring-2', 'ring-error');
+        setTimeout(() => imageInput.classList.remove('border-error', 'ring-2', 'ring-error'), 4000);
+      }
+      return;
+    }
+
     const formData = new FormData(form);
 
     btn.disabled = true;
@@ -1008,12 +1080,14 @@
         const price = parseFloat(formData.get('price'));
         const year = formData.get('year');
 
-        // Agar backend'dan rasm qaytgan bo'lsa uni olamiz, yoki user yuklagan preview rasm, yoki rasmsiz (null)
+        // Agar backend'dan rasm qaytgan bo'lsa uni olamiz, yoki user yuklagan preview rasm, yoki modelga mos fotosurat
         let adImage = null;
         if (json.data?.images && json.data.images.length > 0 && json.data.images[0].file) {
           adImage = json.data.images[0].file;
         } else if (postAdImageBase64) {
           adImage = postAdImageBase64;
+        } else {
+          adImage = resolveCarImage({ title: `${brand} ${model} ${year}`, brand, model });
         }
 
         const newCar = {
@@ -1152,14 +1226,7 @@
                 <div class="space-y-2.5">
                   ${myAds.map(ad => `
                     <div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/30 flex gap-3 relative">
-                      ${ad.image ? `
-                        <img src="${ad.image}" alt="${ad.title}" class="w-20 h-16 object-cover rounded-lg flex-shrink-0 bg-surface-container"/>
-                      ` : `
-                        <div class="w-20 h-16 rounded-lg flex-shrink-0 bg-surface-container flex flex-col items-center justify-center text-outline text-[10px] text-center p-1">
-                          <span class="material-symbols-outlined text-xl mb-0.5 opacity-60">directions_car</span>
-                          <span>Rasmsiz</span>
-                        </div>
-                      `}
+                      <img src="${ad.image || resolveCarImage(ad)}" alt="${ad.title}" class="w-20 h-16 object-cover rounded-lg flex-shrink-0 bg-surface-container" onerror="this.onerror=null; this.src='${DEFAULT_CARS[0].image}';"/>
                       <div class="flex-1 min-w-0">
                         <div class="flex items-start justify-between">
                           <h5 class="text-xs font-bold text-on-surface truncate">${ad.title}</h5>
@@ -1204,13 +1271,7 @@
                   ${allCars.filter(c => userFavorites.has(String(c.id))).map(fav => `
                     <div onclick="window.AvtoHub.openCarModal(window.AvtoHub.getCarById('${fav.id}'))" class="p-2.5 bg-surface-container-low rounded-xl border border-outline-variant/30 flex items-center justify-between cursor-pointer hover:bg-surface-container">
                       <div class="flex items-center gap-2.5 min-w-0">
-                        ${fav.image ? `
-                          <img src="${fav.image}" class="w-12 h-12 object-cover rounded-lg flex-shrink-0"/>
-                        ` : `
-                          <div class="w-12 h-12 rounded-lg flex-shrink-0 bg-surface-container flex items-center justify-center text-outline">
-                            <span class="material-symbols-outlined text-base">directions_car</span>
-                          </div>
-                        `}
+                        <img src="${fav.image || resolveCarImage(fav)}" class="w-12 h-12 object-cover rounded-lg flex-shrink-0" onerror="this.onerror=null; this.src='${DEFAULT_CARS[0].image}';"/>
                         <div class="min-w-0">
                           <h5 class="text-xs font-bold text-on-surface truncate">${fav.title}</h5>
                           <span class="text-xs font-bold text-secondary">$${fav.price.toLocaleString()}</span>
