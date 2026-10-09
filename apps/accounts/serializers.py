@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'phone', 'email', 'username', 'first_name',
-            'last_name', 'full_name', 'avatar', 'role',
+            'last_name', 'full_name', 'age', 'city', 'gender', 'avatar', 'role',
             'is_verified', 'is_active', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'role', 'is_verified', 'is_active', 'created_at', 'updated_at']
@@ -38,12 +38,17 @@ class VerifyOTPSerializer(serializers.Serializer):
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(required=True, max_length=150, error_messages={'required': "Ismingizni kiriting."})
+    last_name = serializers.CharField(required=False, allow_blank=True, max_length=150)
+    age = serializers.IntegerField(required=False, min_value=16, max_value=120, allow_null=True)
+    city = serializers.CharField(required=False, allow_blank=True, default="Toshkent")
+    gender = serializers.CharField(required=False, allow_blank=True)
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password_confirm = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ['phone', 'password', 'password_confirm', 'first_name', 'last_name', 'email', 'role']
+        fields = ['phone', 'password', 'password_confirm', 'first_name', 'last_name', 'age', 'city', 'gender', 'email', 'role']
 
     def validate_phone(self, value):
         phone = normalize_phone(value)

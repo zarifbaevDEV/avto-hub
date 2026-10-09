@@ -75,6 +75,9 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     
     first_name = models.CharField(max_length=150, blank=True, verbose_name="Ism")
     last_name = models.CharField(max_length=150, blank=True, verbose_name="Familiya")
+    age = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name="Yoshi")
+    city = models.CharField(max_length=100, blank=True, default="Toshkent", verbose_name="Shahar / Viloyat")
+    gender = models.CharField(max_length=10, blank=True, choices=[('M', 'Erkak'), ('F', 'Ayol')], verbose_name="Jinsi")
     avatar = models.ImageField(upload_to='avatars/%Y/%m/', null=True, blank=True, verbose_name="Rasm")
     
     role = models.CharField(

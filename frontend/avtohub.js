@@ -38,10 +38,12 @@
   };
 
   // State
+  let currentUser = JSON.parse(localStorage.getItem('avtohub_user') || 'null');
+  let authToken = localStorage.getItem('avtohub_token') || null;
   let allCars = [];
   let userFavorites = new Set(JSON.parse(localStorage.getItem('avtohub_user_favorites') || '[]'));
   let myAds = JSON.parse(localStorage.getItem('avtohub_user_my_ads') || '[]');
-  let currentCity = 'Toshkent';
+  let currentCity = currentUser?.city || 'Toshkent';
   let viewMode = 'list'; // 'list' or 'grid'
 
   let currentFilter = {
@@ -829,6 +831,12 @@
 
   // 4. "E'LON BERISH" (POST AD) MODAL WITH DYNAMIC MODELS
   function openPostAdModal() {
+    if (!currentUser) {
+      showToast("E'lon berish uchun avval ro'yxatdan o'ting yoki tizimga kiring!", 'info');
+      openAuthModal('register', true);
+      return;
+    }
+
     let modal = document.getElementById('avtohub-post-ad-modal');
     if (!modal) {
       modal = document.createElement('div');
@@ -928,11 +936,11 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface mb-1">Shahar / Viloyat *</label>
-              <input type="text" name="city" required value="${currentCity}" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+              <input type="text" name="city" required value="${currentUser?.city || currentCity}" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface mb-1">Telefon raqamingiz *</label>
-              <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998 " class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+              <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="${currentUser?.phone || '+998 '}" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
             </div>
           </div>
 
@@ -1065,8 +1073,14 @@
     btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">progress_activity</span> Yuklanmoqda...';
 
     try {
+      const headers = {};
+      if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
+      }
+
       const res = await fetch('/api/v1/marketplace/listings/quick-create/', {
         method: 'POST',
+        headers: headers,
         body: formData
       });
 
@@ -1164,28 +1178,58 @@
         <!-- Header -->
         <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between sticky top-0 bg-surface-container-lowest z-10">
           <h3 class="font-headline-sm text-base font-bold text-on-surface">Mening Profilim</h3>
-          <button onclick="window.AvtoHub.closeModal('avtohub-profile-modal')" class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-outline">
+          <button onclick="window.AvtoHub.closeModal('avtohub-profile-modal')" class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-outline hover:text-on-surface">
             <span class="material-symbols-outlined text-lg">close</span>
           </button>
         </div>
 
         <div class="p-5 space-y-4">
           <!-- User Info Card -->
-          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center gap-3">
-            <div class="w-14 h-14 rounded-full bg-secondary text-white font-bold text-xl flex items-center justify-center shadow-md">
-              A
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-1.5">
-                <h4 class="font-bold text-base text-on-surface">Admin Foydalanuvchi</h4>
-                <span class="material-symbols-outlined text-secondary text-sm">verified</span>
+          ${currentUser ? `
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center gap-3">
+              <div class="w-14 h-14 rounded-full bg-secondary text-white font-bold text-xl flex items-center justify-center shadow-md flex-shrink-0">
+                ${(currentUser.first_name || 'U').charAt(0).toUpperCase()}
               </div>
-              <p class="text-xs text-outline font-medium">+998 90 123 45 67</p>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed text-[11px] font-semibold">
-                Super Admin / Tasdiqlangan
-              </span>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <h4 class="font-bold text-base text-on-surface truncate">${currentUser.first_name} ${currentUser.last_name || ''}</h4>
+                  <span class="material-symbols-outlined text-secondary text-sm" title="Tasdiqlangan">verified</span>
+                </div>
+                <p class="text-xs text-outline font-medium">${currentUser.phone}</p>
+                <div class="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed text-[11px] font-semibold">
+                    🎂 ${currentUser.age ? currentUser.age + ' yosh' : 'Yoshi: ko\'rsatilmagan'}
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-highest text-on-surface text-[11px] font-semibold">
+                    📍 ${currentUser.city || 'Toshkent'}
+                  </span>
+                  ${currentUser.gender ? `
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-medium bg-outline-variant/20 text-on-surface-variant">
+                      ${currentUser.gender === 'M' ? 'Erkak' : currentUser.gender === 'F' ? 'Ayol' : 'Boshqa'}
+                    </span>
+                  ` : ''}
+                </div>
+              </div>
             </div>
-          </div>
+          ` : `
+            <div class="p-4 rounded-xl bg-gradient-to-br from-secondary/10 to-primary-container/20 border border-secondary/30 flex flex-col gap-3 text-center items-center">
+              <div class="w-12 h-12 rounded-full bg-secondary/15 text-secondary font-bold text-2xl flex items-center justify-center">
+                <span class="material-symbols-outlined text-2xl">person_outline</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-base text-on-surface">Mehmon foydalanuvchi</h4>
+                <p class="text-xs text-outline mt-0.5">AvtoHub imkoniyatlaridan to'liq foydalanish va e'lonlar berish uchun ro'yxatdan o'ting.</p>
+              </div>
+              <div class="flex items-center gap-2 w-full pt-1">
+                <button onclick="window.AvtoHub.closeModal('avtohub-profile-modal'); window.AvtoHub.openAuthModal('register');" class="flex-1 py-2 bg-secondary text-white rounded-xl text-xs font-bold shadow hover:bg-secondary-container">
+                  Ro'yxatdan o'tish
+                </button>
+                <button onclick="window.AvtoHub.closeModal('avtohub-profile-modal'); window.AvtoHub.openAuthModal('login');" class="flex-1 py-2 bg-surface-container-lowest border border-outline-variant text-on-surface rounded-xl text-xs font-semibold hover:bg-surface-container">
+                  Kirish
+                </button>
+              </div>
+            </div>
+          `}
 
           <!-- Navigation Tabs -->
           <div class="flex items-center bg-surface-container-low p-1 rounded-xl border border-outline-variant/30">
@@ -1314,15 +1358,411 @@
                 <span class="text-xs text-outline">Almashtirish</span>
               </button>
 
-              <button onclick="window.AvtoHub.handleLogout()" class="w-full py-2.5 text-error font-semibold rounded-xl bg-error/10 hover:bg-error/20 transition-colors text-sm flex items-center justify-center gap-1.5 mt-2">
-                <span class="material-symbols-outlined text-lg">logout</span>
-                <span>Tizimdan chiqish</span>
-              </button>
+              ${currentUser ? `
+                <button onclick="window.AvtoHub.handleLogout()" class="w-full py-2.5 text-error font-semibold rounded-xl bg-error/10 hover:bg-error/20 transition-colors text-sm flex items-center justify-center gap-1.5 mt-2">
+                  <span class="material-symbols-outlined text-lg">logout</span>
+                  <span>Tizimdan chiqish</span>
+                </button>
+              ` : `
+                <button onclick="window.AvtoHub.closeModal('avtohub-profile-modal'); window.AvtoHub.openAuthModal('register');" class="w-full py-2.5 text-secondary font-semibold rounded-xl bg-secondary/10 hover:bg-secondary/20 transition-colors text-sm flex items-center justify-center gap-1.5 mt-2">
+                  <span class="material-symbols-outlined text-lg">login</span>
+                  <span>Ro'yxatdan o'tish / Tizimga kirish</span>
+                </button>
+              `}
             </div>
           ` : ''}
         </div>
       </div>
     `;
+  }
+
+  // 5.5 "AUTENTIFIKATSIYA" (REGISTRATION & LOGIN MODAL)
+  function openAuthModal(initialTab = 'register', isRequired = false) {
+    let modal = document.getElementById('avtohub-auth-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'avtohub-auth-modal';
+      modal.className = 'fixed inset-0 z-[9995] flex items-center justify-center p-3 bg-black/60 backdrop-blur-sm transition-opacity duration-200';
+      document.body.appendChild(modal);
+    }
+
+    renderAuthModalContent(initialTab, isRequired);
+
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.remove();
+    };
+  }
+
+  function renderAuthModalContent(activeTab = 'register', isRequired = false) {
+    const modal = document.getElementById('avtohub-auth-modal');
+    if (!modal) return;
+
+    const CITIES = [
+      'Toshkent', 'Samarqand', 'Buxoro', 'Andijon', 'Farg\'ona', 
+      'Namangan', 'Qashqadaryo', 'Surxondaryo', 'Xorazm', 'Navoiy', 
+      'Jizzax', 'Sirdaryo', 'Qoraqalpog\'iston'
+    ];
+
+    modal.innerHTML = `
+      <div class="bg-surface-container-lowest max-w-md w-full max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl border border-outline-variant/30 flex flex-col relative animate-in fade-in zoom-in-95 duration-150">
+        <!-- Header -->
+        <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between sticky top-0 bg-surface-container-lowest z-10">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-xl bg-secondary text-white flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-xl">${activeTab === 'register' ? 'how_to_reg' : 'login'}</span>
+            </div>
+            <div>
+              <h3 class="font-headline-sm text-base font-bold text-on-surface">
+                ${activeTab === 'register' ? 'Ro\'yxatdan o\'tish' : 'Tizimga kirish'}
+              </h3>
+              <p class="text-[11px] text-outline">
+                ${isRequired ? 'Bu amalni bajarish uchun avval ro\'yxatdan o\'ting' : 'AvtoHub — O\'zbekiston avtomobil platformasi'}
+              </p>
+            </div>
+          </div>
+          <button onclick="window.AvtoHub.closeModal('avtohub-auth-modal')" class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-outline hover:text-on-surface">
+            <span class="material-symbols-outlined text-lg">close</span>
+          </button>
+        </div>
+
+        <div class="p-5">
+          <!-- Switch Tabs -->
+          <div class="flex p-1 bg-surface-container-low rounded-xl border border-outline-variant/30 mb-4">
+            <button type="button" onclick="window.AvtoHub.renderAuthModalContent('register', ${isRequired})" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all ${activeTab === 'register' ? 'bg-secondary text-white shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}">
+              Ro'yxatdan o'tish
+            </button>
+            <button type="button" onclick="window.AvtoHub.renderAuthModalContent('login', ${isRequired})" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all ${activeTab === 'login' ? 'bg-secondary text-white shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}">
+              Tizimga kirish
+            </button>
+          </div>
+
+          <!-- Error Box -->
+          <div id="auth-error-box" class="hidden mb-3.5 p-3 rounded-xl bg-error/10 border border-error/30 text-error text-xs font-medium"></div>
+
+          ${activeTab === 'register' ? `
+            <!-- Register Form -->
+            <form id="auth-register-form" onsubmit="window.AvtoHub.submitRegister(event)" class="space-y-3">
+              <div class="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label class="block text-xs font-semibold text-on-surface mb-1">Ismingiz *</label>
+                  <input type="text" name="first_name" required placeholder="Masalan: Sardor" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-on-surface mb-1">Familiyangiz</label>
+                  <input type="text" name="last_name" placeholder="Masalan: Aliyev" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label class="block text-xs font-semibold text-on-surface mb-1">Yoshingiz *</label>
+                  <input type="number" name="age" required min="16" max="120" placeholder="Masalan: 25" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-on-surface mb-1">Jinsingiz</label>
+                  <select name="gender" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary">
+                    <option value="M">Erkak</option>
+                    <option value="F">Ayol</option>
+                    <option value="O">Boshqa</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-on-surface mb-1">Shahar / Viloyat *</label>
+                <select name="city" required class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary">
+                  ${CITIES.map(c => `<option value="${c}" ${c === currentCity ? 'selected' : ''}>${c}</option>`).join('')}
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-on-surface mb-1">Telefon raqamingiz *</label>
+                <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label class="block text-xs font-semibold text-on-surface mb-1">Parol *</label>
+                  <input type="password" name="password" required minlength="6" placeholder="Kamida 6 ta belgi" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-on-surface mb-1">Parol qayta *</label>
+                  <input type="password" name="password_confirm" required minlength="6" placeholder="Parolni tasdiqlang" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+                </div>
+              </div>
+
+              <button type="submit" id="auth-submit-btn" class="w-full mt-2 py-3 bg-secondary hover:bg-secondary-container text-white font-bold rounded-xl shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-lg">check_circle</span>
+                <span>Ro'yxatdan o'tish</span>
+              </button>
+
+              <div class="text-center pt-2">
+                <p class="text-xs text-outline">
+                  Hisobingiz bormi?
+                  <button type="button" onclick="window.AvtoHub.renderAuthModalContent('login', ${isRequired})" class="text-secondary font-bold hover:underline ml-1">
+                    Tizimga kirish
+                  </button>
+                </p>
+              </div>
+            </form>
+          ` : `
+            <!-- Login Form -->
+            <form id="auth-login-form" onsubmit="window.AvtoHub.submitLogin(event)" class="space-y-3.5">
+              <div>
+                <label class="block text-xs font-semibold text-on-surface mb-1">Telefon raqamingiz *</label>
+                <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2.5 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-on-surface mb-1">Parolingiz *</label>
+                <input type="password" name="password" required placeholder="Parolni kiriting" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2.5 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
+              </div>
+
+              <button type="submit" id="auth-submit-btn" class="w-full mt-2 py-3 bg-secondary hover:bg-secondary-container text-white font-bold rounded-xl shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-lg">login</span>
+                <span>Tizimga kirish</span>
+              </button>
+
+              <div class="text-center pt-2">
+                <p class="text-xs text-outline">
+                  Profilingiz yo'qmi?
+                  <button type="button" onclick="window.AvtoHub.renderAuthModalContent('register', ${isRequired})" class="text-secondary font-bold hover:underline ml-1">
+                    Ro'yxatdan o'tish
+                  </button>
+                </p>
+              </div>
+            </form>
+          `}
+        </div>
+      </div>
+    `;
+  }
+
+  async function submitRegister(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('auth-submit-btn');
+    const errorBox = document.getElementById('auth-error-box');
+    if (errorBox) errorBox.classList.add('hidden');
+
+    let phone = form.phone.value.trim().replace(/[\\s()-]/g, '');
+    if (!phone.startsWith('+')) {
+      if (phone.startsWith('998')) phone = '+' + phone;
+      else phone = '+998' + phone;
+    }
+
+    const password = form.password.value;
+    const password_confirm = form.password_confirm.value;
+    const first_name = form.first_name.value.trim();
+    const last_name = form.last_name.value.trim();
+    const age = parseInt(form.age.value, 10);
+    const city = form.city.value;
+    const gender = form.gender.value;
+
+    if (password !== password_confirm) {
+      if (errorBox) {
+        errorBox.textContent = "Parollar bir-biriga mos kelmadi!";
+        errorBox.classList.remove('hidden');
+      }
+      return;
+    }
+
+    if (isNaN(age) || age < 16 || age > 120) {
+      if (errorBox) {
+        errorBox.textContent = "Yoshingiz 16 dan 120 gacha bo'lishi kerak.";
+        errorBox.classList.remove('hidden');
+      }
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">progress_activity</span> Ro\'yxatdan o\'tilmoqda...';
+
+    try {
+      const res = await fetch('/api/v1/auth/register/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone,
+          password,
+          password_confirm,
+          first_name,
+          last_name,
+          age,
+          city,
+          gender
+        })
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success) {
+        currentUser = json.data.user;
+        authToken = json.data.tokens.access;
+        localStorage.setItem('avtohub_user', JSON.stringify(currentUser));
+        localStorage.setItem('avtohub_token', authToken);
+        updateAuthUI();
+        closeModal('avtohub-auth-modal');
+        showToast(`Xush kelibsiz, ${currentUser.first_name}! Ro'yxatdan muvaffaqiyatli o'tdingiz 🎉`, 'success');
+      } else {
+        let msg = json.message || "Ro'yxatdan o'tishda xatolik yuz berdi.";
+        if (json.errors) {
+          const errList = [];
+          for (const key of Object.keys(json.errors)) {
+            const val = json.errors[key];
+            errList.push(Array.isArray(val) ? val.join(' ') : val);
+          }
+          if (errList.length > 0) msg = errList.join('; ');
+        }
+        if (errorBox) {
+          errorBox.textContent = msg;
+          errorBox.classList.remove('hidden');
+        } else {
+          showToast(msg, 'error');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      if (errorBox) {
+        errorBox.textContent = "Server bilan bog'lanishda xatolik yuz berdi.";
+        errorBox.classList.remove('hidden');
+      }
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined text-lg">check_circle</span> Ro\'yxatdan o\'tish';
+      }
+    }
+  }
+
+  async function submitLogin(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('auth-submit-btn');
+    const errorBox = document.getElementById('auth-error-box');
+    if (errorBox) errorBox.classList.add('hidden');
+
+    let phone = form.phone.value.trim().replace(/[\\s()-]/g, '');
+    if (!phone.startsWith('+')) {
+      if (phone.startsWith('998')) phone = '+' + phone;
+      else phone = '+998' + phone;
+    }
+    const password = form.password.value;
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">progress_activity</span> Kirilmoqda...';
+
+    try {
+      const res = await fetch('/api/v1/auth/login/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, password })
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success) {
+        currentUser = json.data.user;
+        authToken = json.data.tokens.access;
+        localStorage.setItem('avtohub_user', JSON.stringify(currentUser));
+        localStorage.setItem('avtohub_token', authToken);
+        updateAuthUI();
+        closeModal('avtohub-auth-modal');
+        showToast(`Xush kelibsiz, ${currentUser.first_name || currentUser.phone}! 👋`, 'success');
+      } else {
+        let msg = json.message || "Telefon yoki parol noto'g'ri.";
+        if (json.errors) {
+          const errList = [];
+          for (const key of Object.keys(json.errors)) {
+            const val = json.errors[key];
+            errList.push(Array.isArray(val) ? val.join(' ') : val);
+          }
+          if (errList.length > 0) msg = errList.join('; ');
+        }
+        if (errorBox) {
+          errorBox.textContent = msg;
+          errorBox.classList.remove('hidden');
+        } else {
+          showToast(msg, 'error');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      if (errorBox) {
+        errorBox.textContent = "Server bilan bog'lanishda xatolik yuz berdi.";
+        errorBox.classList.remove('hidden');
+      }
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined text-lg">login</span> Tizimga kirish';
+      }
+    }
+  }
+
+  function handleLogout() {
+    currentUser = null;
+    authToken = null;
+    localStorage.removeItem('avtohub_user');
+    localStorage.removeItem('avtohub_token');
+    updateAuthUI();
+    closeModal('avtohub-profile-modal');
+    showToast("Tizimdan muvaffaqiyatli chiqildi.", 'info');
+  }
+
+  function updateAuthUI() {
+    const headers = document.querySelectorAll('header');
+    headers.forEach(header => {
+      let authBtn = header.querySelector('.header-auth-pill');
+      if (!authBtn) {
+        const trailing = header.querySelector('.flex.items-center:last-child');
+        if (trailing) {
+          authBtn = document.createElement('button');
+          authBtn.className = 'header-auth-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition-all mr-1';
+          trailing.insertBefore(authBtn, trailing.firstChild);
+        }
+      }
+      if (authBtn) {
+        if (currentUser) {
+          authBtn.className = 'header-auth-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-secondary/10 hover:bg-secondary/20 text-secondary border border-secondary/20 mr-1 cursor-pointer';
+          authBtn.innerHTML = `
+            <span class="w-5 h-5 rounded-full bg-secondary text-white text-[10px] font-bold flex items-center justify-center">${(currentUser.first_name || 'U').charAt(0).toUpperCase()}</span>
+            <span class="max-w-[75px] truncate">${currentUser.first_name}</span>
+          `;
+          authBtn.onclick = (e) => {
+            e.preventDefault();
+            openProfileModal();
+          };
+        } else {
+          authBtn.className = 'header-auth-pill flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary/90 shadow-sm mr-1 cursor-pointer';
+          authBtn.innerHTML = `
+            <span class="material-symbols-outlined text-sm">login</span>
+            <span>Kirish</span>
+          `;
+          authBtn.onclick = (e) => {
+            e.preventDefault();
+            openAuthModal('register');
+          };
+        }
+      }
+    });
+
+    const profileModal = document.getElementById('avtohub-profile-modal');
+    if (profileModal) {
+      renderProfileContent();
+    }
+  }
+
+  function checkInitialAuthPrompt() {
+    if (!currentUser) {
+      const alreadyPrompted = sessionStorage.getItem('avtohub_reg_prompt_seen');
+      if (!alreadyPrompted) {
+        sessionStorage.setItem('avtohub_reg_prompt_seen', 'true');
+        setTimeout(() => {
+          if (!document.getElementById('avtohub-auth-modal') && !document.getElementById('avtohub-car-modal')) {
+            openAuthModal('register', false);
+          }
+        }, 800);
+      }
+    }
   }
 
   function deleteMyAd(id) {
@@ -2084,11 +2524,6 @@
     showToast(`Bog'lanish raqami: ${phone}`);
   }
 
-  function handleLogout() {
-    closeModal('avtohub-profile-modal');
-    showToast("Tizimdan muvaffaqiyatli chiqildi.", 'success');
-  }
-
   function toggleDarkMode() {
     document.documentElement.classList.toggle('dark');
     const isDark = document.documentElement.classList.contains('dark');
@@ -2287,6 +2722,11 @@
     toggleFavorite,
     handleCall,
     handleLogout,
+    openAuthModal,
+    renderAuthModalContent,
+    submitRegister,
+    submitLogin,
+    updateAuthUI,
     toggleDarkMode,
     showToast,
     resetFilters
@@ -2296,9 +2736,13 @@
     document.addEventListener('DOMContentLoaded', () => {
       initListeners();
       loadCars();
+      updateAuthUI();
+      checkInitialAuthPrompt();
     });
   } else {
     initListeners();
     loadCars();
+    updateAuthUI();
+    checkInitialAuthPrompt();
   }
 })();
