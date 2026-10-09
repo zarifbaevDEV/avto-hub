@@ -37,8 +37,21 @@
     'Mercedes-Benz': ['C-Class', 'E-Class', 'S-Class', 'GLE', 'GLS', 'G-Class (Gelik)']
   };
 
+  // Helper to validate and get current user
+  function getCurrentUser() {
+    try {
+      const raw = localStorage.getItem('avtohub_user');
+      if (!raw || raw === 'null' || raw === 'undefined') return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object' || !parsed.first_name || !parsed.phone) return null;
+      return parsed;
+    } catch (e) {
+      return null;
+    }
+  }
+
   // State
-  let currentUser = JSON.parse(localStorage.getItem('avtohub_user') || 'null');
+  let currentUser = getCurrentUser();
   let authToken = localStorage.getItem('avtohub_token') || null;
   let allCars = [];
   let userFavorites = new Set(JSON.parse(localStorage.getItem('avtohub_user_favorites') || '[]'));
@@ -1154,18 +1167,31 @@
 
   // 5. "PROFIL" (PROFILE MODAL) WITH "MENING E'LONLARIM" & FAVORITES TABS
   function openProfileModal(activeTab = 'my_ads') {
+    currentUser = getCurrentUser();
+    if (!currentUser) {
+      showToast("Profil ma'lumotlarini ko'rish uchun avval ro'yxatdan o'ting!", 'info');
+      openAuthModal('register', true);
+      return;
+    }
+
     let modal = document.getElementById('avtohub-profile-modal');
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'avtohub-profile-modal';
-      modal.className = 'fixed inset-0 z-[9990] flex items-center justify-center p-3 bg-black/60 backdrop-blur-sm transition-opacity duration-200';
+      modal.className = 'fixed inset-0 flex items-center justify-center p-3 bg-black/70 backdrop-blur-sm transition-opacity duration-200';
+      modal.style.cssText = 'position: fixed; inset: 0; z-index: 99990; display: flex; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.7);';
       document.body.appendChild(modal);
+    } else {
+      modal.style.display = 'flex';
     }
 
     renderProfileContent(activeTab);
 
     modal.onclick = (e) => {
-      if (e.target === modal) modal.remove();
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modal.remove();
+      }
     };
   }
 
@@ -1382,14 +1408,20 @@
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'avtohub-auth-modal';
-      modal.className = 'fixed inset-0 z-[9995] flex items-center justify-center p-3 bg-black/60 backdrop-blur-sm transition-opacity duration-200';
+      modal.className = 'fixed inset-0 flex items-center justify-center p-3 bg-black/75 backdrop-blur-md transition-opacity duration-200';
+      modal.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.75);';
       document.body.appendChild(modal);
+    } else {
+      modal.style.display = 'flex';
     }
 
     renderAuthModalContent(initialTab, isRequired);
 
     modal.onclick = (e) => {
-      if (e.target === modal) modal.remove();
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modal.remove();
+      }
     };
   }
 
@@ -1603,6 +1635,9 @@
         updateAuthUI();
         closeModal('avtohub-auth-modal');
         showToast(`Xush kelibsiz, ${currentUser.first_name}! Ro'yxatdan muvaffaqiyatli o'tdingiz 🎉`, 'success');
+        setTimeout(() => {
+          openProfileModal('my_ads');
+        }, 500);
       } else {
         let msg = json.message || "Ro'yxatdan o'tishda xatolik yuz berdi.";
         if (json.errors) {
@@ -1667,6 +1702,9 @@
         updateAuthUI();
         closeModal('avtohub-auth-modal');
         showToast(`Xush kelibsiz, ${currentUser.first_name || currentUser.phone}! 👋`, 'success');
+        setTimeout(() => {
+          openProfileModal('my_ads');
+        }, 500);
       } else {
         let msg = json.message || "Telefon yoki parol noto'g'ri.";
         if (json.errors) {
@@ -1706,9 +1744,43 @@
     updateAuthUI();
     closeModal('avtohub-profile-modal');
     showToast("Tizimdan muvaffaqiyatli chiqildi.", 'info');
+    setTimeout(() => {
+      checkInitialAuthPrompt();
+    }, 400);
   }
 
   function updateAuthUI() {
+    currentUser = getCurrentUser();
+
+    // 1. Guest Registration Banner right at top of content
+    let guestBanner = document.getElementById('avtohub-guest-banner');
+    const mainEl = document.querySelector('main');
+    if (!currentUser) {
+      if (!guestBanner && mainEl) {
+        guestBanner = document.createElement('div');
+        guestBanner.id = 'avtohub-guest-banner';
+        guestBanner.className = 'w-full mb-3 p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-lg flex items-center justify-between border border-blue-400/30 animate-in fade-in';
+        guestBanner.innerHTML = `
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+              <span class="material-symbols-outlined text-xl">account_circle</span>
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs font-bold leading-tight">Ro'yxatdan o'ting!</p>
+              <p class="text-[11px] opacity-90 truncate">Ism, yosh va telefoningizni kiritib profilingizni yarating</p>
+            </div>
+          </div>
+          <button onclick="window.AvtoHub.openAuthModal('register')" class="px-3 py-1.5 bg-white text-blue-700 font-bold text-xs rounded-xl shadow hover:bg-blue-50 active:scale-95 transition-all flex-shrink-0 ml-2">
+            Ro'yxatdan o'tish
+          </button>
+        `;
+        mainEl.insertBefore(guestBanner, mainEl.firstChild);
+      }
+    } else {
+      if (guestBanner) guestBanner.remove();
+    }
+
+    // 2. Header auth pill
     const headers = document.querySelectorAll('header');
     headers.forEach(header => {
       let authBtn = header.querySelector('.header-auth-pill');
@@ -1735,7 +1807,7 @@
           authBtn.className = 'header-auth-pill flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary/90 shadow-sm mr-1 cursor-pointer';
           authBtn.innerHTML = `
             <span class="material-symbols-outlined text-sm">login</span>
-            <span>Kirish</span>
+            <span>Kirish / Ro'yxatdan o'tish</span>
           `;
           authBtn.onclick = (e) => {
             e.preventDefault();
@@ -1752,16 +1824,13 @@
   }
 
   function checkInitialAuthPrompt() {
+    currentUser = getCurrentUser();
     if (!currentUser) {
-      const alreadyPrompted = sessionStorage.getItem('avtohub_reg_prompt_seen');
-      if (!alreadyPrompted) {
-        sessionStorage.setItem('avtohub_reg_prompt_seen', 'true');
-        setTimeout(() => {
-          if (!document.getElementById('avtohub-auth-modal') && !document.getElementById('avtohub-car-modal')) {
-            openAuthModal('register', false);
-          }
-        }, 800);
-      }
+      setTimeout(() => {
+        if (!document.getElementById('avtohub-auth-modal')) {
+          openAuthModal('register', false);
+        }
+      }, 300);
     }
   }
 
