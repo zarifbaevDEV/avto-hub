@@ -1512,15 +1512,9 @@
                 <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
               </div>
 
-              <div class="grid grid-cols-2 gap-2.5">
-                <div>
-                  <label class="block text-xs font-semibold text-on-surface mb-1">Parol *</label>
-                  <input type="password" name="password" required minlength="6" placeholder="Kamida 6 ta belgi" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-on-surface mb-1">Parol qayta *</label>
-                  <input type="password" name="password_confirm" required minlength="6" placeholder="Parolni tasdiqlang" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
-                </div>
+              <div>
+                <label class="block text-xs font-semibold text-on-surface mb-1">Telefon raqamingiz *</label>
+                <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
               </div>
 
               <button type="submit" id="auth-submit-btn" class="w-full mt-2 py-3 bg-secondary hover:bg-secondary-container text-white font-bold rounded-xl shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2">
@@ -1543,11 +1537,6 @@
               <div>
                 <label class="block text-xs font-semibold text-on-surface mb-1">Telefon raqamingiz *</label>
                 <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2.5 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold text-on-surface mb-1">Parolingiz *</label>
-                <input type="password" name="password" required placeholder="Parolni kiriting" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2.5 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
               </div>
 
               <button type="submit" id="auth-submit-btn" class="w-full mt-2 py-3 bg-secondary hover:bg-secondary-container text-white font-bold rounded-xl shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2">
@@ -1583,17 +1572,15 @@
       else phone = '+998' + phone;
     }
 
-    const password = form.password.value;
-    const password_confirm = form.password_confirm.value;
     const first_name = form.first_name.value.trim();
     const last_name = form.last_name.value.trim();
     const age = parseInt(form.age.value, 10);
     const city = form.city.value;
     const gender = form.gender.value;
 
-    if (password !== password_confirm) {
+    if (!first_name) {
       if (errorBox) {
-        errorBox.textContent = "Parollar bir-biriga mos kelmadi!";
+        errorBox.textContent = "Iltimos, ismingizni kiriting.";
         errorBox.classList.remove('hidden');
       }
       return;
@@ -1616,8 +1603,6 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           phone,
-          password,
-          password_confirm,
           first_name,
           last_name,
           age,
@@ -1681,7 +1666,6 @@
       if (phone.startsWith('998')) phone = '+' + phone;
       else phone = '+998' + phone;
     }
-    const password = form.password.value;
 
     btn.disabled = true;
     btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">progress_activity</span> Kirilmoqda...';
@@ -1690,7 +1674,7 @@
       const res = await fetch('/api/v1/auth/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, password })
+        body: JSON.stringify({ phone })
       });
 
       const json = await res.json();
@@ -1706,7 +1690,7 @@
           openProfileModal('my_ads');
         }, 500);
       } else {
-        let msg = json.message || "Telefon yoki parol noto'g'ri.";
+        let msg = json.message || "Telefon raqami topilmadi.";
         if (json.errors) {
           const errList = [];
           for (const key of Object.keys(json.errors)) {

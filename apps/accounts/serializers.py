@@ -39,12 +39,12 @@ class VerifyOTPSerializer(serializers.Serializer):
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=True, max_length=150, error_messages={'required': "Ismingizni kiriting."})
-    last_name = serializers.CharField(required=False, allow_blank=True, max_length=150)
+    last_name = serializers.CharField(required=False, allow_blank=True, max_length=150, default="")
     age = serializers.IntegerField(required=False, min_value=16, max_value=120, allow_null=True)
     city = serializers.CharField(required=False, allow_blank=True, default="Toshkent")
-    gender = serializers.CharField(required=False, allow_blank=True)
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password_confirm = serializers.CharField(write_only=True, required=True)
+    gender = serializers.CharField(required=False, allow_blank=True, default="M")
+    password = serializers.CharField(write_only=True, required=False, allow_blank=True, default="")
+    password_confirm = serializers.CharField(write_only=True, required=False, allow_blank=True, default="")
 
     class Meta:
         model = User
@@ -57,34 +57,48 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return phone
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password_confirm']:
-            raise serializers.ValidationError({"password_confirm": "Parollar bir xil emas."})
+        password = attrs.get('password')
+        password_confirm = attrs.get('password_confirm')
+        if password or password_confirm:
+            if password != password_confirm:
+                raise serializers.ValidationError({"password_confirm": "Parollar bir xil emas."})
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop('password_confirm')
+        validated_data.pop('password_confirm', None)
+        password = validated_data.pop('password', None)
         role = validated_data.get('role', User.Role.USER)
         # Prevent regular registration with ADMIN/SUPER_ADMIN roles directly
         if role in [User.Role.ADMIN, User.Role.SUPER_ADMIN, User.Role.MODERATOR]:
             role = User.Role.USER
         validated_data['role'] = role
 
-        user = User.objects.create_user(**validated_data)
+        if password:
+            user = User.objects.create_user(password=password, **validated_data)
+        else:
+            user = User.objects.create_user(password=None, **validated_data)
         SellerProfile.objects.create(user=user)
         return user
 
 
 class UserLoginSerializer(serializers.Serializer):
     phone = serializers.CharField(max_length=20)
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True, required=False, allow_blank=True, default="")
 
     def validate(self, attrs):
         phone = normalize_phone(attrs.get('phone'))
         password = attrs.get('password')
 
-        user = authenticate(username=phone, password=password)
-        if not user:
-            raise serializers.ValidationError("Telefon raqami yoki parol noto'g'ri.")
+        if password:
+            user = authenticate(username=phone, password=password)
+            if not user:
+                raise serializers.ValidationError("Telefon raqami yoki parol noto'g'ri.")
+        else:
+            try:
+                user = User.objects.get(phone=phone)
+            except User.DoesNotExist:
+                raise serializers.ValidationError("Ushbu telefon raqamli foydalanuvchi topilmadi. Avval ro'yxatdan o'ting.")
+
         if not user.is_active:
             raise serializers.ValidationError("Ushbu hisob faolsizlantirilgan.")
 
