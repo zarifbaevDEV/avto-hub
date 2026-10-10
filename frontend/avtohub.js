@@ -1512,11 +1512,6 @@
                 <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
               </div>
 
-              <div>
-                <label class="block text-xs font-semibold text-on-surface mb-1">Telefon raqamingiz *</label>
-                <input type="tel" name="phone" required placeholder="+998 90 123 45 67" value="+998" class="w-full bg-surface-container-low border border-outline-variant/60 rounded-xl px-3 py-2 text-sm font-medium focus:border-secondary focus:ring-1 focus:ring-secondary"/>
-              </div>
-
               <button type="submit" id="auth-submit-btn" class="w-full mt-2 py-3 bg-secondary hover:bg-secondary-container text-white font-bold rounded-xl shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined text-lg">check_circle</span>
                 <span>Ro'yxatdan o'tish</span>
